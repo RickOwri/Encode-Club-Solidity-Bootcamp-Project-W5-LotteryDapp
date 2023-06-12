@@ -34,7 +34,6 @@ export function ClosingLottery() {
     );
     return (
         <>
-            <h2>Close Bet</h2>
             
             <button onClick={() => closingBets(signer,lotteryContract, setTxData, setLoading)}>Close Bets</button>
         </>

@@ -42,7 +42,6 @@ export function OpenBets() {
     );
     return (
         <>
-            <h2>Open Bet</h2>
             <p><input type="text" value={betsDuration} onChange={handleBetsDuration} />Bets Duration</p>
             
             <button onClick={() => openBets(signer,provider,lotteryContract, betsDuration, setTxData, setLoading)}>Open bets</button>

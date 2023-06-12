@@ -9,7 +9,6 @@ import { useSigner, useNetwork, useBalance } from 'wagmi';
 export function State() {
     return (
         <>
-                <h2>CheckState</h2>
                 <CheckState></CheckState>
         </>
     )
@@ -56,7 +55,6 @@ function CheckState() {
     );
     return (
         <>
-            <p>Check the State</p>
             <button onClick={() => checkState(
                 lotteryContract, 
                 provider, 

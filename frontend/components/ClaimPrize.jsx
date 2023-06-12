@@ -44,7 +44,6 @@ export function ClaimPrize() {
     );
     return (
         <>
-            <h2>Claim prize</h2>
 
             <p><input type="text" value={amountToclaim} onChange={handleAmountToclaim} />Token Amount</p>
             

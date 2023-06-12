@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 export function BuyingToken() {
     return (
         <>
-                <h2>Buy Token</h2>
                 <BuyToken></BuyToken>
         </>
     )

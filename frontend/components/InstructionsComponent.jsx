@@ -25,14 +25,22 @@ export default function InstructionsComponent() {
 			</header>
 			<div className={styles.buttons_container}>
 				<h2 className={styles.header_container}>What do you want to do ?</h2>
+				<h2>Wallet Informations</h2>
 				<WalletInfo></WalletInfo>
+				<h2>Buying Token</h2>
 				<BuyingToken></BuyingToken>
+				<h2>Check State</h2>
 				<State></State>
+				<h2>Open Bets</h2>
 				<OpenBets></OpenBets>
+				<h2>Closing Lottery</h2>
 				<ClosingLottery></ClosingLottery>
+				<h2>Claim Prize</h2>
 				<ClaimPrize></ClaimPrize>
-				<DisplayTokenBalance></DisplayTokenBalance>
+				<h2>Display balance</h2>
 				<DisplayBalance></DisplayBalance>
+				<h2>Display token balance</h2>
+				<DisplayTokenBalance></DisplayTokenBalance>
 			</div>
 			<div className={styles.footer}>
 				Footer

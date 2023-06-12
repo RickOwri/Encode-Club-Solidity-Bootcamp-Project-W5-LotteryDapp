@@ -31,15 +31,12 @@ export function DisplayBalance() {
     )
     if (isLoading) return (
         <>
-            <>Balance ETH is loading...
-            </>
+            <>Balance ETH is loading...</>
         </>
     );
 
     return (
         <>
-            <h2>display Balance</h2>
-
             <button onClick={() => displayBalance(signer, provider, setTxData, setLoading)}>Display Balance</button>
         </>
     );
@@ -47,9 +44,7 @@ export function DisplayBalance() {
 
 async function displayBalance(signer, provider, setTxData, setLoading) {
     setLoading(true);
-    const balanceBN = await provider.getBalance(signer.getAddress());
-    console.log("azaeazeazea"+signer+provider)
-    // const balanceBN = await signer.getBalance();
+    const balanceBN = await signer.getBalance();
     const balance = ethers.utils.formatEther(balanceBN);
     setTxData(balance)
     setLoading(false)

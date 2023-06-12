@@ -12,7 +12,6 @@ export default function WalletInfo() {
 
 	if (signer) return (
 		<>
-			<h2>Wallet informations</h2>
 			<p>Your account address is {signer._address}</p>
 			<p>Connected to the {chain.name} network </p>
 			<button onClick={() => signMessage(signer, "Partez !")}>Sign</button>
@@ -22,14 +21,12 @@ export default function WalletInfo() {
 
 	if (isLoading) return (
 		<>
-			<h2>Wallet informations</h2>
 			<p>Wait a while, the wallet is loading</p>
 		</>
 	)
 
 	return (
 		<>
-			<h2>Wallet informations</h2>
 			<p>Connect a Wallet</p>
 		</>
 	)
