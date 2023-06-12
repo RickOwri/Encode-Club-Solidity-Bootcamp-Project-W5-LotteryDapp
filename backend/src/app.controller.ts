@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, Query, ForbiddenException } from '@nestjs/common';
 import { AppService } from './app.service';
-import { DelegateTokenDto, RequestTokenDto, TransferTokenDto, CastVoteDto } from './dtos/requestToken.dto';
+import { BuyTokenDto } from './dtos/requestToken.dto';
 
 @Controller()
 export class AppController {
@@ -37,9 +37,9 @@ export class AppController {
 
   a: number = 0;
 
-  @Post('request-tokens')
-  requestTokens(@Body() body: RequestTokenDto) {
-    return this.appService.requestTokens(body.address, body.mintValue, body.signature);
+  @Post('buy-tokens')
+  buyTokens(@Body() body: BuyTokenDto) {
+    return this.appService.buyTokens(body.address, body.mintValue, body.signature);
   }
 
 }

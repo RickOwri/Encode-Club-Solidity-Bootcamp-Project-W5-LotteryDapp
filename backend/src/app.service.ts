@@ -3,8 +3,9 @@ import {BigNumber, ethers} from 'ethers';
 import { ConfigService } from '@nestjs/config';
 import * as tokenJson from './assets/LotteryToken.json';
 import * as TokenizedBetsJson from './assets/Lottery.json';
+import { request } from 'http';
 
-// const REACT_APP_BET_CONTRACT_ADDRESS="0x4aA7bc013c9Dc1339181962A51dfDDEDC5b6Ad4c"
+// const NEXT_PUBLIC_BET_CONTRACT_ADDRESS="0x4aA7bc013c9Dc1339181962A51dfDDEDC5b6Ad4c"
 
 @Injectable()
 export class AppService {
@@ -19,10 +20,10 @@ export class AppService {
     
     this.provider = new ethers.providers.AlchemyProvider(
       chainId1, 
-      process.env.REACT_APP_ALCHEMY_API_KEY);    
+      process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);    
     
-    const contractAddressToken = this.configService.get<string>('REACT_APP_TOKEN_ADDRESS')
-    const contractAddressTokenizedBets = this.configService.get<string>('REACT_APP_BET_CONTRACT_ADDRESS')
+    const contractAddressToken = this.configService.get<string>('NEXT_PUBLIC_TOKEN_ADDRESS')
+    const contractAddressTokenizedBets = this.configService.get<string>('NEXT_PUBLIC_BET_CONTRACT_ADDRESS')
 
     this.tokenContract = new ethers.Contract(
       contractAddressToken,
@@ -56,12 +57,12 @@ export class AppService {
   }
 
   getTokenContractAddress() {
-    const contractAddressToken = this.configService.get<string>('REACT_APP_TOKEN_ADDRESS')
+    const contractAddressToken = this.configService.get<string>('NEXT_PUBLIC_TOKEN_ADDRESS')
     return contractAddressToken
   }
 
   getTokenizedBetsAddress() {
-    const contractAddressTokenizedBets = this.configService.get<string>('REACT_APP_BET_CONTRACT_ADDRESS')
+    const contractAddressTokenizedBets = this.configService.get<string>('NEXT_PUBLIC_BET_CONTRACT_ADDRESS')
     return contractAddressTokenizedBets
   }
 
@@ -73,9 +74,10 @@ export class AppService {
   }
 
 
-  async requestTokens(address: string, MINT_VALUE:string, signature:string) {
 
-    const pKey = this.configService.get<string>('REACT_APP_PRIVATE_KEY_SANGOKU');
+  async buyTokens(address: string, MINT_VALUE:string, signature:string) {
+
+    const pKey = this.configService.get<string>('NEXT_PUBLIC_PRIVATE_KEY_SANGOKU');
 
     const wallet = new ethers.Wallet(pKey);
 
@@ -87,12 +89,17 @@ export class AppService {
     
     const mintValue = ethers.utils.parseUnits(MINT_VALUE)
     const requestTx = this.TokenizedBetsContract.connect(signer).openBets(currentBlock.timestamp + 360);
-    console.log(MINT_VALUE)
 
-    return MINT_VALUE
+    return requestTx
   }
 
-
-  
+  async function displayBalance(index) {
+    // const balanceBN = await provider.getBalance(accounts[Number(index)].getAddress());
+    const balanceBN = await accounts[Number(index)].getBalance();
+    const balance = ethers.utils.formatEther(balanceBN);
+    console.log(
+      `The account address ${accounts[Number(index)].getAddress()} has ${balance} ETH\n`
+    );
+  }
 
 }

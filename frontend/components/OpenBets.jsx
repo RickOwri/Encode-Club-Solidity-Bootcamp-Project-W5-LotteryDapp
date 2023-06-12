@@ -1,13 +1,33 @@
-import styles from "../styles/InstructionsComponent.module.css";
-import Router, { useRouter } from "next/router";
+import { ethers } from 'ethers';
+import lotteryJson from '../assets/Lottery.json';
+import { useState } from 'react';
+import dotenv from "dotenv";
 import { useSigner, useNetwork, useBalance } from 'wagmi';
-import { useState, useEffect } from 'react';
-
 
 export function OpenBets() {
     const { data: signer } = useSigner();
     const [txData, setTxData] = useState(null);
     const [isLoading, setLoading] = useState(false);
+    const [betsDuration, setBetsDuration] = useState("360");
+
+    const handleBetsDuration = (event) => {
+        setBetsDuration(event.target.value);
+      };
+
+
+    const chainId1 = 80001; // This is the chainId for Mumbai Testnet
+    // const chainId2 = 11155111
+
+
+    const provider = new ethers.providers.AlchemyProvider(
+        chainId1, 
+        process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
+
+    const lotteryContract = new ethers.Contract(
+        process.env.NEXT_PUBLIC_BET_CONTRACT_ADDRESS, 
+        lotteryJson.abi, 
+        provider);
+
     if (txData) return (
         <>
             <p>Bet Opened!</p>
@@ -22,34 +42,18 @@ export function OpenBets() {
     );
     return (
         <>
-            <p>Open Bet</p>
-            <button onClick={() => openBets(duration, setTxData)}>Open bets</button>
+            <h2>Open Bet</h2>
+            <p><input type="text" value={betsDuration} onChange={handleBetsDuration} />Bets Duration</p>
+            
+            <button onClick={() => openBets(signer,provider,lotteryContract, betsDuration, setTxData, setLoading)}>Open bets</button>
         </>
     );
 }
 
-// function requestTokens(signer, signature, setLoading, setTxData) {
-//     setLoading(true);
-
-//     console.log(JSON.stringify({ address: signer._address, mintValue: "1", signature: signature }))
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ address: signer._address, mintValue: "1", signature: signature })
-//     };
-
-//     fetch('http://localhost:3001/request-tokens', requestOptions)
-//         .then(response => response.json())
-//         .then((data) => {
-//             setTxData(data);
-//             setLoading(false);
-//         });
-// }
-
-async function openBets(duration, setTxData) {
+async function openBets(signer, provider,contract, duration, setTxData, setLoading) {
     setLoading(true);
 	const currentBlock = await provider.getBlock("latest");
-	const tx = await contract.openBets(currentBlock.timestamp + Number(duration));
+	const requestTx = contract.connect(signer).openBets(currentBlock.timestamp + duration);;
 	const TxData = await tx.wait();
 	console.log(`Bets opened (${TxData.transactionHash}) `);
     setTxData(TxData)

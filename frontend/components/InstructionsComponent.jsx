@@ -1,11 +1,15 @@
 import styles from "../styles/InstructionsComponent.module.css";
 import Router, { useRouter } from "next/router";
-import { useSigner, useNetwork, useBalance } from 'wagmi';
-import { useState, useEffect } from 'react';
-import { CheckState } from "./CheckState";
+
+import { State } from "./CheckState";
 import { BuyingToken, MinterToken } from "./BuyTokens";
 import { OpenBets } from "./OpenBets";
 import WalletInfo from "./walletInfo";
+
+import { ethers } from 'ethers';
+import { ClosingLottery } from "./ClosingBets";
+
+require('dotenv').config();
 
 export default function InstructionsComponent() {
 	const router = useRouter();
@@ -20,8 +24,9 @@ export default function InstructionsComponent() {
 				<h2 className={styles.header_container}>What do you want to do ?</h2>
 				<WalletInfo></WalletInfo>
 				<BuyingToken></BuyingToken>
-				<CheckState></CheckState>
+				<State></State>
 				<OpenBets></OpenBets>
+				<ClosingLottery></ClosingLottery>
 			</div>
 			<div className={styles.footer}>
 				Footer
@@ -30,13 +35,6 @@ export default function InstructionsComponent() {
 	);
 }
 
-
-// async function openBets(duration) {
-// 	const currentBlock = await provider.getBlock("latest");
-// 	const tx = await contract.openBets(currentBlock.timestamp + Number(duration));
-// 	const receipt = await tx.wait();
-// 	console.log(`Bets opened (${receipt.transactionHash}) `);
-// }
 
 async function displayBalance(index) {
 	// const balanceBN = await provider.getBalance(accounts[Number(index)].getAddress());

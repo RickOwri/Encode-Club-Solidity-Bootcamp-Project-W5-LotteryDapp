@@ -31,12 +31,12 @@ async function initAccounts() {
 
   const chainId = 80001; // This is the chainId for Mumbai Testnet
 
-  provider = new ethers.providers.AlchemyProvider(chainId, process.env.REACT_APP_ALCHEMY_API_KEY);
+  provider = new ethers.providers.AlchemyProvider(chainId, process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
 
 
-  const wallet0 = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY_SANGOKU ?? "");
-  const wallet1 = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY_VEGETA ?? "");
-  const wallet2 = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY_TRUNK ?? "")
+  const wallet0 = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY_SANGOKU ?? "");
+  const wallet1 = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY_VEGETA ?? "");
+  const wallet2 = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY_TRUNK ?? "")
 
   const signer0 = wallet0.connect(provider);
   const signer1 = wallet1.connect(provider);

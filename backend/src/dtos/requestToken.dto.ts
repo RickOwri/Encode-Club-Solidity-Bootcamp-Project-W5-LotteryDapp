@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { BigNumber, ethers } from "ethers";
 
 
-export class RequestTokenDto {
+export class BuyTokenDto {
     @ApiProperty()
     readonly address:string;
     @ApiProperty()
@@ -11,12 +11,6 @@ export class RequestTokenDto {
     readonly signature:string;
     
 }
-
-export class DelegateTokenDto {
-    @ApiProperty()
-    readonly addressReceiver:string;;
-}
-
 
 export class TransferTokenDto {
     @ApiProperty()

@@ -3,6 +3,8 @@ import Router, { useRouter } from "next/router";
 import { useSigner, useNetwork, useBalance } from 'wagmi';
 import { useState, useEffect } from 'react';
 
+
+
 export default function WalletInfo() {
 	const { data: signer, isError, isLoading } = useSigner();
 	const { chain, chains } = useNetwork();
