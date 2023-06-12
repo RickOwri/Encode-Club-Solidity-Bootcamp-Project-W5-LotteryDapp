@@ -11,6 +11,7 @@ import { ClosingLottery } from "./ClosingBets";
 import {DisplayTokenBalance} from "./DisplayTokenBalance"
 import { ClaimPrize } from "./ClaimPrize";
 import { DisplayBalance } from "./DisplayBalance";
+import { WithdrawTokens } from "./WithdrawToken";
 
 require('dotenv').config();
 
@@ -41,6 +42,8 @@ export default function InstructionsComponent() {
 				<DisplayBalance></DisplayBalance>
 				<h2>Display token balance</h2>
 				<DisplayTokenBalance></DisplayTokenBalance>
+				<h2>Withdraw Tokens</h2>
+				<WithdrawTokens></WithdrawTokens>
 			</div>
 			<div className={styles.footer}>
 				Footer

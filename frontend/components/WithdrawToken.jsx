@@ -6,13 +6,13 @@ import { useState } from 'react';
 import dotenv from "dotenv";
 import { useSigner, useNetwork, useBalance } from 'wagmi';
 
-export function DisplayTokenBalance() {
+export function WithdrawTokens() {
     const { data: signer } = useSigner();
     const [txData, setTxData] = useState(null);
     const [isLoading, setLoading] = useState(false);
+    const [amountToWithdraw, setAmountToWithdraw] = useState("")
 
-    const chainId1 = 80001; // This is the chainId for Mumbai Testnet
-    // const chainId2 = 11155111
+    const chainId1 = 80001; 
 
     const provider = new ethers.providers.AlchemyProvider(
         chainId1,
@@ -28,30 +28,35 @@ export function DisplayTokenBalance() {
         lotteryJson.abi,
         provider);
 
+    const handleAmountToWithdraw = (event) => {
+        setAmountToWithdraw(event.target.value);
+        };
+
+
     if (txData) return (
         <>
-            <p>Token balance is {txData} -- Symbols there --</p>
+            <p>Withdraw confirmed (${receipt.transactionHash})</p>
         </>
     )
     if (isLoading) return (
         <>
-            <>Balance Token is loading...
+            <>Withdraw loaded...
             </>
         </>
     );
     return (
         <>
+            <p><input type="text" value={amountToWithdraw} onChange={handleAmountToWithdraw} />Token Amount</p>
 
-            <button onClick={() => displayTokenBalance(signer, token, setTxData, setLoading)}>DisplayTokenBalance</button>
+            <button onClick={() => withdrawTokens(signer, lotteryContract, amountToWithdraw, setTxData, setLoading)}>withdrawTokens</button>
         </>
     );
 }
 
-async function displayTokenBalance(signer, contract, setTxData, setLoading) {
+async function withdrawTokens(signer, contract, amount, setTxData, setLoading) {
     setLoading(true);
-    console.log(signer.getAddress())
-    const balanceBN = await contract.balanceOf(signer.getAddress());
-    const balance = ethers.utils.formatEther(balanceBN);
-    setTxData(balance)
+    const tx = await contract.connect(signer).ownerWithdraw(ethers.utils.parseEther(amount));
+    const receipt = await tx.wait();
+    setTxData(receipt)
     setLoading(false)
 }
