@@ -35,7 +35,8 @@ export function WithdrawTokens() {
 
     if (txData) return (
         <>
-            <p>Withdraw confirmed (${receipt.transactionHash})</p>
+            <p>Withdraw confirmed ({txData.transactionHash})</p>
+            <a href={"https://mumbai.polygonscan.com/tx/" + txData.transactionHash} target="_blank">{txData.hash}</a>
         </>
     )
     if (isLoading) return (
@@ -46,7 +47,7 @@ export function WithdrawTokens() {
     );
     return (
         <>
-            <p><input type="text" value={amountToWithdraw} onChange={handleAmountToWithdraw} />Token Amount</p>
+            <p><input type="text" value={amountToWithdraw} onChange={handleAmountToWithdraw} />Token Amount To withdraw </p>
 
             <button onClick={() => withdrawTokens(signer, lotteryContract, amountToWithdraw, setTxData, setLoading)}>withdrawTokens</button>
         </>

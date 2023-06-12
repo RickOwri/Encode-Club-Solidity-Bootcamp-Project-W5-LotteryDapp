@@ -1,7 +1,10 @@
-import styles from "../styles/InstructionsComponent.module.css";
-import Router, { useRouter } from "next/router";
+import { ethers } from 'ethers';
+import LTK from '../assets/LotteryToken.json';
+import lotteryJson from '../assets/Lottery.json';
+// import lotteryJson from '../assets/Lottery.json';
+import { useState } from 'react';
+import dotenv from "dotenv";
 import { useSigner, useNetwork, useBalance } from 'wagmi';
-import { useState, useEffect } from 'react';
 
 
 export function BuyingToken() {
@@ -16,6 +19,28 @@ function BuyToken() {
     const { data: signer } = useSigner();
     const [txData, setTxData] = useState(null);
     const [isLoading, setLoading] = useState(false);
+    const [amountToBuy, setAmountToBuy] = useState("1");
+    
+
+    const chainId1 = 80001; 
+
+    const provider = new ethers.providers.AlchemyProvider(
+        chainId1,
+        process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
+
+    const token = new ethers.Contract(
+        process.env.NEXT_PUBLIC_TOKEN_ADDRESS,
+        LTK.abi,
+        provider);
+
+    const lotteryContract = new ethers.Contract(
+        process.env.NEXT_PUBLIC_BET_CONTRACT_ADDRESS,
+        lotteryJson.abi,
+        provider);
+
+    const handleAmountToBuy = (event) => {
+        setAmountToBuy(event.target.value);
+        };
 
     
     if (txData) return (
@@ -32,31 +57,36 @@ function BuyToken() {
     );
     return (
         <>
-            <p>Buying tokens to be minted</p>
-            <button onClick={() => buyToken(signer, "anything", setLoading, setTxData)}>buy tokens</button>
+            <p><input type="text" value={amountToBuy} onChange={handleAmountToBuy} />Token Amount To buy </p>
+            <button onClick={() => buyTokens(signer, lotteryContract, amountToBuy, setTxData, setLoading, setAmountToBuy)}>buy tokens</button>
         </>
     );
 }
 
-function buyToken(signer, signature, setLoading, setTxData) {
+
+
+async function buyTokens(signer, contract, amount, setTxData, setLoading, setAmountToBuy) {
     setLoading(true);
-
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ address: signer._address, mintValue: "1", signature: signature })
-    };
-
-    fetch('http://localhost:3001/buy-tokens', requestOptions)
-        .then(response => response.json())
-        .then((data) => {
-            setTxData(data);
-            setLoading(false);
-        });
+    const tx = await contract.connect(signer).purchaseTokens({ value: ethers.utils.parseUnits(amount) });
+    const receipt = await tx.wait();
+    setTxData(receipt)
+    setAmountToBuy(amount)
+    setLoading(false)
 }
 
+// function buyToken(signer, signature, setLoading, setTxData) {
+//     setLoading(true);
 
-async function buyTokens(index, amount) {
-	// TODO
-	await contract.connect(accounts[Number(index)]).purchaseTokens({ value: ethers.utils.parseUnits(amount) });
-}
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ address: signer._address, mintValue: "20", signature: signature })
+//     };
+
+//     fetch('http://localhost:3001/buy-tokens', requestOptions)
+//         .then(response => response.json())
+//         .then((data) => {
+//             setTxData(data);
+//             setLoading(false);
+//         });
+// }

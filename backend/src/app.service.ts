@@ -83,14 +83,12 @@ export class AppService {
 
     const signer = wallet.connect(this.provider);
 
-    
-    // console.log(MINT_VALUE)
     const currentBlock = await this.provider.getBlock("latest");
     
     const mintValue = ethers.utils.parseUnits(MINT_VALUE)
-    const requestTx = this.TokenizedBetsContract.connect(signer).openBets(currentBlock.timestamp + 360);
+    // const requestTx = this.TokenizedBetsContract.connect(signer).mint(mintValue);
 
-    return requestTx
+    // return requestTx
   }
 
   // async function displayBalance(index) {
