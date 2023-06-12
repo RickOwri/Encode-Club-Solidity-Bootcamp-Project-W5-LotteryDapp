@@ -39,7 +39,7 @@ function CheckState() {
         lotteryJson.abi, 
         provider);    
 
-    if (completed) return (
+    if (open) return (
         <>
             <p>The lottery is {open ? "open" : "closed"}</p>
             <p>The last block was mined at {currentBlockDate.toLocaleDateString()} : {currentBlockDate.toLocaleTimeString()}</p>
@@ -70,7 +70,7 @@ function CheckState() {
 
 
 async function checkState(
-    contract,  
+    contract,
     provider,
     setLoading, 
     setOpen,
@@ -80,6 +80,7 @@ async function checkState(
 ) {
   setLoading(true)
   const state = await contract.betsOpen();
+  console.log(state)
   const currentBlock = await provider.getBlock("latest");
   const currentBlockDateData = new Date(currentBlock.timestamp * 1000);
   const closingTime = await contract.betsClosingTime();

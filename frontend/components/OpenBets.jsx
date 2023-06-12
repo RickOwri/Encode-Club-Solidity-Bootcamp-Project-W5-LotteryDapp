@@ -31,7 +31,7 @@ export function OpenBets() {
     if (txData) return (
         <>
             <p>Bet Opened!</p>
-            <a href={"https://mumbai.polygonscan.com/tx/" + TxData.transactionHash} target="_blank">{txData.hash}</a>
+            <a href={"https://mumbai.polygonscan.com/tx/" + txData.hash} target="_blank">{txData.hash}</a>
         </>
     )
     if (isLoading) return (
