@@ -42,7 +42,7 @@ export function OpenBets() {
     );
     return (
         <>
-            <h1>Open Bet</h1>
+            <h2>Open Bet</h2>
             <p><input type="text" value={betsDuration} onChange={handleBetsDuration} />Bets Duration</p>
             
             <button onClick={() => openBets(signer,provider,lotteryContract, betsDuration, setTxData, setLoading)}>Open bets</button>
@@ -53,8 +53,7 @@ export function OpenBets() {
 async function openBets(signer, provider,contract, duration, setTxData, setLoading) {
     setLoading(true);
 	const currentBlock = await provider.getBlock("latest");
-	const requestTx = contract.connect(signer).openBets(currentBlock.timestamp + duration);;
-	const TxData = await tx.wait();
-	console.log(`Bets opened (${TxData.transactionHash}) `);
+	const requestTx = await contract.connect(signer).openBets(currentBlock.timestamp + duration);;
+	const TxData = await requestTx.wait();
     setTxData(TxData)
 }

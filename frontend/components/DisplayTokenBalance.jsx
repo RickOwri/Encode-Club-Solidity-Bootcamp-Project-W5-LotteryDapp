@@ -31,26 +31,24 @@ export function DisplayTokenBalance() {
     )
     if (isLoading) return (
         <>
-            <>Balance is loading...
+            <>Balance Token is loading...
             </>
         </>
     );
     return (
         <>
-            <h2>displayBalance</h2>
+            <h2>display Token Balance</h2>
 
-            <button onClick={() => displayBalance(signer, token, setTxData, setLoading)}>Close Bets</button>
+            <button onClick={() => displayBalance(signer._address, token, setTxData, setLoading)}>Close Bets</button>
         </>
     );
 }
 
-async function displayBalance(signer, token, setTxData, setLoading) {
+async function displayBalance(address, token, setTxData, setLoading) {
     setLoading(true);
-    const tx = await token
-        .connect(signer)
-        .balanceOf(signer._address);
+    console.log(address)
+    const tx = await token.balanceOf(address);
     const receipt = await tx.wait();
-    console.log(`Prize claimed (${receipt.transactionHash})`);
     setTxData(receipt)
     setLoading(false)
 }

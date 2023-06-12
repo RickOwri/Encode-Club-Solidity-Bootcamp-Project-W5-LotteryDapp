@@ -10,7 +10,7 @@ export function ClaimPrize() {
     const [isLoading, setLoading] = useState(false);
 
 
-    const [amountToclaim, setAmountToclaim] = useState("360");
+    const [amountToclaim, setAmountToclaim] = useState("0.1");
 
 
     const handleAmountToclaim = (event) => {

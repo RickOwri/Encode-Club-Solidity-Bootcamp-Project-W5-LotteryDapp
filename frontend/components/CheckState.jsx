@@ -17,10 +17,11 @@ export function State() {
 
 
 function CheckState() {
-    const [data, setData] = useState(null);
+    const [open, setOpen] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [currentBlockDate, setCurrentBlockDate] = useState(null);
     const [closingTimeDate, setClosingTimeDate] = useState(null);
+    const [completed, setCompleted] = useState(false)
 
     const router = useRouter();
 
@@ -39,9 +40,9 @@ function CheckState() {
         lotteryJson.abi, 
         provider);    
 
-    if (data) return (
+    if (completed) return (
         <>
-            <p>The lottery is {data ? "open" : "closed"}</p>
+            <p>The lottery is {open ? "open" : "closed"}</p>
             <p>The last block was mined at {currentBlockDate.toLocaleDateString()} : {currentBlockDate.toLocaleTimeString()}</p>
             <p>Lottey should close at {closingTimeDate.toLocaleDateString()} : {closingTimeDate.toLocaleTimeString()}</p>
             <p></p>
@@ -56,7 +57,14 @@ function CheckState() {
     return (
         <>
             <p>Check the State</p>
-            <button onClick={() => checkState(lotteryContract, provider, setLoading, setData,setCurrentBlockDate, setClosingTimeDate)}>CheckState</button>
+            <button onClick={() => checkState(
+                lotteryContract, 
+                provider, 
+                setLoading, 
+                setOpen,
+                setCurrentBlockDate, 
+                setClosingTimeDate,
+                setCompleted)}>Check State</button>
         </>
     );
 }
@@ -64,20 +72,23 @@ function CheckState() {
 
 
 async function checkState(
-    contract, 
-    provider, 
+    contract,  
+    provider,
     setLoading, 
-    setData,
+    setOpen,
     setCurrentBlockDate,
-    setClosingTimeDate
+    setClosingTimeDate,
+    setCompleted
 ) {
   setLoading(true)
   const state = await contract.betsOpen();
-  const currentBlockDate = new Date(currentBlock.timestamp * 1000);
+  const currentBlock = await provider.getBlock("latest");
+  const currentBlockDateData = new Date(currentBlock.timestamp * 1000);
   const closingTime = await contract.betsClosingTime();
   const closingTimeDate = new Date(closingTime.toNumber() * 1000);
-  setData(state)
-  setCurrentBlockDate(currentBlockDate)
+  setOpen(state)
+  setCurrentBlockDate(currentBlockDateData)
   setClosingTimeDate(closingTimeDate)
+  setCompleted(true)
   setLoading(false)
 }
