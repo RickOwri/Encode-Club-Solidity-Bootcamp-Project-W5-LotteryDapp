@@ -93,13 +93,13 @@ export class AppService {
     return requestTx
   }
 
-  async function displayBalance(index) {
-    // const balanceBN = await provider.getBalance(accounts[Number(index)].getAddress());
-    const balanceBN = await accounts[Number(index)].getBalance();
-    const balance = ethers.utils.formatEther(balanceBN);
-    console.log(
-      `The account address ${accounts[Number(index)].getAddress()} has ${balance} ETH\n`
-    );
-  }
+  // async function displayBalance(index) {
+  //   // const balanceBN = await provider.getBalance(accounts[Number(index)].getAddress());
+  //   const balanceBN = await accounts[Number(index)].getBalance();
+  //   const balance = ethers.utils.formatEther(balanceBN);
+  //   console.log(
+  //     `The account address ${accounts[Number(index)].getAddress()} has ${balance} ETH\n`
+  //   );
+  // }
 
 }

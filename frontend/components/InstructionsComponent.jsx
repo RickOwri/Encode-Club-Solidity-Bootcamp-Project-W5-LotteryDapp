@@ -1,13 +1,15 @@
 import styles from "../styles/InstructionsComponent.module.css";
 import Router, { useRouter } from "next/router";
-
-import { State } from "./CheckState";
-import { BuyingToken, MinterToken } from "./BuyTokens";
-import { OpenBets } from "./OpenBets";
-import WalletInfo from "./walletInfo";
-
 import { ethers } from 'ethers';
+
+import WalletInfo from "./walletInfo";
+import { BuyingToken } from "./BuyTokens";
+import { State } from "./CheckState";
+import { OpenBets } from "./OpenBets";
 import { ClosingLottery } from "./ClosingBets";
+
+import {DisplayTokenBalance} from "./DisplayTokenBalance"
+import { ClaimPrize } from "./ClaimPrize";
 
 require('dotenv').config();
 
@@ -27,6 +29,8 @@ export default function InstructionsComponent() {
 				<State></State>
 				<OpenBets></OpenBets>
 				<ClosingLottery></ClosingLottery>
+				<ClaimPrize></ClaimPrize>
+				<DisplayTokenBalance></DisplayTokenBalance>
 			</div>
 			<div className={styles.footer}>
 				Footer
