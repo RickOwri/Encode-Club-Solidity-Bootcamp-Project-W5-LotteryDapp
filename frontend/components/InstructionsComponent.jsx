@@ -12,8 +12,9 @@ import {DisplayTokenBalance} from "./DisplayTokenBalance"
 import { ClaimPrize } from "./ClaimPrize";
 import { DisplayBalance } from "./DisplayBalance";
 import { WithdrawTokens } from "./WithdrawToken";
-import { DisplayOwnerPool } from "./DisplayOwnerPool";
+import { DisplayOwnerPool} from "./DisplayOwnerPool";
 import { BettingToken } from "./Bet";
+import { DisplayPrize } from "./DisplayPrice";
 
 require('dotenv').config();
 
@@ -50,6 +51,10 @@ export default function InstructionsComponent() {
 				<DisplayOwnerPool></DisplayOwnerPool>
 				<h2>Betting Token</h2>
 				<BettingToken></BettingToken>
+				<h2>Display Prize</h2>
+				<DisplayPrize></DisplayPrize>
+				<h2>Burn Token</h2>
+				<burnTokens></burnTokens>
 			</div>
 			<div className={styles.footer}>
 				Footer

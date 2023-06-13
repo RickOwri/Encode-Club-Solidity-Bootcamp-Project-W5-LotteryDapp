@@ -73,20 +73,3 @@ async function buyTokens(signer, contract, amount, setTxData, setLoading, setAmo
     setAmountToBuy(amount)
     setLoading(false)
 }
-
-// function buyToken(signer, signature, setLoading, setTxData) {
-//     setLoading(true);
-
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ address: signer._address, mintValue: "20", signature: signature })
-//     };
-
-//     fetch('http://localhost:3001/buy-tokens', requestOptions)
-//         .then(response => response.json())
-//         .then((data) => {
-//             setTxData(data);
-//             setLoading(false);
-//         });
-// }
