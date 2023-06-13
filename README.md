@@ -64,6 +64,9 @@
   * Use any framework of your preference
 - I will use create-web3-react tools
 
+## Contract
+NEXT_PUBLIC_BET_CONTRACT_ADDRESS="0x183d89f2aa311C6ccCE2383131d3946316b3ea4A"
+NEXT_PUBLIC_TOKEN_ADDRESS="0x110661228FDA5eaCd86449c73719D19109B758b2"
 
 ## Ressource 
 https://www.researchgate.net/publication/338064306_ABCDE_--_Agile_Block_Chain_Dapp_Engineering
