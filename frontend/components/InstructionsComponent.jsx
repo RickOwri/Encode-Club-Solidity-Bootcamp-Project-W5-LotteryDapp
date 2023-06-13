@@ -15,6 +15,7 @@ import { WithdrawTokens } from "./WithdrawToken";
 import { DisplayOwnerPool} from "./DisplayOwnerPool";
 import { BettingToken } from "./Bet";
 import { DisplayPrize } from "./DisplayPrice";
+import { BurningToken } from "./BurnTokens";
 
 require('dotenv').config();
 
@@ -54,7 +55,7 @@ export default function InstructionsComponent() {
 				<h2>Display Prize</h2>
 				<DisplayPrize></DisplayPrize>
 				<h2>Burn Token</h2>
-				<burnTokens></burnTokens>
+				<BurningToken></BurningToken>
 			</div>
 			<div className={styles.footer}>
 				Footer

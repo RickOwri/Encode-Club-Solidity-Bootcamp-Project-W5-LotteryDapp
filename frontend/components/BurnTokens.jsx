@@ -7,21 +7,21 @@ import dotenv from "dotenv";
 import { useSigner, useNetwork, useBalance } from 'wagmi';
 
 
-export function BuyingToken() {
+export function BurningToken() {
     return (
         <>
-                <BuyToken></BuyToken>
+                <BurnToken></BurnToken>
         </>
     )
 }
 
-function BuyToken() {
+function BurnToken() {
     const { data: signer } = useSigner();
     const [txData, setTxData] = useState(null);
     const [txDataAllow, setTxDataAllow] = useState(null);
 
     const [isLoading, setLoading] = useState(false);
-    const [amountToBuy, setAmountToBuy] = useState("1");
+    const [amountToBurn, setAmountToBurn] = useState("1");
     
 
     const chainId1 = 80001; 
@@ -40,8 +40,8 @@ function BuyToken() {
         lotteryJson.abi,
         provider);
 
-    const handleAmountToBuy = (event) => {
-        setAmountToBuy(event.target.value);
+    const handleAmountToBurn = (event) => {
+        setAmountToBurn(event.target.value);
         };
 
     
@@ -55,21 +55,21 @@ function BuyToken() {
     )
     if (isLoading) return (
         <>
-            <>Buying tokens to be minted...
+            <>Burning tokens to be minted...
             </>
         </>
     );
     return (
         <>
-            <p><input type="text" value={amountToBuy} onChange={handleAmountToBuy} />Token Amount To buy </p>
-            <button onClick={() => buyTokens(signer, lotteryContract, token, amountToBuy, setTxData, setLoading, setAmountToBuy, setTxDataAllow)}>buy tokens</button>
+            <p><input type="text" value={amountToBurn} onChange={handleAmountToBurn} />Token Amount To Burn </p>
+            <button onClick={() => burnTokens(signer, lotteryContract, token, amountToBurn, setTxData, setLoading, setAmountToBurn, setTxDataAllow)}>Burn tokens</button>
         </>
     );
 }
 
 
 
-async function burnTokens(signer, contract, token, amount, setTxData, setLoading, setAmountToBuy, setTxDataAllow) {
+async function burnTokens(signer, contract, token, amount, setTxData, setLoading, setAmountToBurn, setTxDataAllow) {
     setLoading(true);
     const allowTx = await token
       .connect(signer)
@@ -81,7 +81,7 @@ async function burnTokens(signer, contract, token, amount, setTxData, setLoading
     const receipt = await tx.wait();
     setTxDataAllow(receiptAllow)
     setTxData(receipt)
-    setAmountToBuy(amount)
+    setAmountToBurn(amount)
     setLoading(false)
   }
   
