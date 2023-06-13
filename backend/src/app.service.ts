@@ -73,7 +73,13 @@ export class AppService {
     return receipt;
   }
 
+  async mint(hash: string) {
+    const tx = await this.provider.getTransaction(hash);
+    const receipt = await this.awaitTx(tx);
+    return receipt;
+  }
 
+  
 
   async buyTokens(address: string, MINT_VALUE:string, signature:string) {
 

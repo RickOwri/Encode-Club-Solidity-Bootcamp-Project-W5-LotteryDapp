@@ -56,6 +56,7 @@ export function WithdrawTokens() {
 
 async function withdrawTokens(signer, contract, amount, setTxData, setLoading) {
     setLoading(true);
+    console.log(ethers.utils.parseEther(amount))
     const tx = await contract.connect(signer).ownerWithdraw(ethers.utils.parseEther(amount));
     const receipt = await tx.wait();
     setTxData(receipt)

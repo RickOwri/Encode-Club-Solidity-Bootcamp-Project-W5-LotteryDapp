@@ -13,9 +13,10 @@ let token: LotteryToken;
 let accounts: ethers.Signer[];
 let provider: ethers.providers;
 
-const BET_PRICE = 1;
+
+const BET_PRICE = 0.1;
 const BET_FEE = 0.1;
-const TOKEN_RATIO = 200;
+const TOKEN_RATIO = 100;
 
 async function main() {
   await initAccounts();
@@ -54,7 +55,7 @@ async function initContracts() {
 
   
   const contractFactory = new Lottery__factory(accounts[0]);
-  contract = await contractFactory.deploy("LotteryToken", "LTO01", TOKEN_RATIO, ethers.utils.parseEther(BET_PRICE.toFixed(10)), ethers.utils.parseEther(BET_FEE.toFixed(10)));
+  contract = await contractFactory.deploy("LotteryToken", "LTO02", TOKEN_RATIO, ethers.utils.parseEther(BET_PRICE.toFixed(10)), ethers.utils.parseEther(BET_FEE.toFixed(10)));
   await contract.deployed();
   const tokenAddress = await contract.paymentToken();
   const tokenFactory = new LotteryToken__factory();

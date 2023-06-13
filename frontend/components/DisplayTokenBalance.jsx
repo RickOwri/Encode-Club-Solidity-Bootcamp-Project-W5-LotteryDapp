@@ -49,7 +49,7 @@ export function DisplayTokenBalance() {
 
 async function displayTokenBalance(signer, contract, setTxData, setLoading) {
     setLoading(true);
-    console.log(signer.getAddress())
+    console.log(contract)
     const balanceBN = await contract.balanceOf(signer.getAddress());
     const balance = ethers.utils.formatEther(balanceBN);
     setTxData(balance)

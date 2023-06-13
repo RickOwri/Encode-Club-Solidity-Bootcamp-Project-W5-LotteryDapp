@@ -9,8 +9,8 @@ const config: HardhatUserConfig = {
   networks: {
       hardhat: {},
       polygon_mumbai: {
-        url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`,
-        accounts: [`0x${process.env.REACT_APP_PRIVATE_KEY_SANGOKU}`],
+        url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+        accounts: [`0x${process.env.NEXT_PUBLIC_PRIVATE_KEY_SANGOKU}`],
     },
   },
 
