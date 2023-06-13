@@ -31,7 +31,7 @@ export function OpenBets() {
     if (txData) return (
         <>
             <p>Bet Opened!</p>
-            <a href={"https://mumbai.polygonscan.com/tx/" + txData.hash} target="_blank">{txData.hash}</a>
+            <a href={"https://mumbai.polygonscan.com/tx/" + txData.transactionHash} target="_blank">{txData.transactionHash}</a>
         </>
     )
     if (isLoading) return (
@@ -52,7 +52,7 @@ export function OpenBets() {
 async function openBets(signer, provider,contract, duration, setTxData, setLoading) {
     setLoading(true);
 	const currentBlock = await provider.getBlock("latest");
-	const requestTx = await contract.connect(signer).openBets(currentBlock.timestamp + duration);;
+	const requestTx = await contract.connect(signer).openBets(currentBlock.timestamp + Number(duration));
 	const TxData = await requestTx.wait();
     setTxData(TxData)
 }

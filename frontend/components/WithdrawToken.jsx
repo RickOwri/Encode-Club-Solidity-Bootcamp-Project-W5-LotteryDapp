@@ -36,7 +36,7 @@ export function WithdrawTokens() {
     if (txData) return (
         <>
             <p>Withdraw confirmed ({txData.transactionHash})</p>
-            <a href={"https://mumbai.polygonscan.com/tx/" + txData.transactionHash} target="_blank">{txData.hash}</a>
+            <a href={"https://mumbai.polygonscan.com/tx/" + txData.transactionHash} target="_blank">{txData.transactionHash}</a>
         </>
     )
     if (isLoading) return (

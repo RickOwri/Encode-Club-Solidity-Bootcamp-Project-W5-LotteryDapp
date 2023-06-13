@@ -19,21 +19,14 @@ function CheckState() {
     const [open, setOpen] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [currentBlockDate, setCurrentBlockDate] = useState(null);
-    const [closingTimeDate, setClosingTimeDate] = useState(null);
+    const [closingTimeDateNow, setClosingTimeDateNow] = useState(null);
     const [completed, setCompleted] = useState(false)
 
 
     const chainId1 = 80001; // This is the chainId for Mumbai Testnet
-    // const chainId2 = 11155111
-
     const provider = new ethers.providers.AlchemyProvider(
         chainId1,
         process.env.NEXT_PUBLIC_ALCHEMY_API_KEY);
-
-    // const token = new ethers.Contract(
-    //     process.env.NEXT_PUBLIC_TOKEN_ADDRESS,
-    //     LTK.abi,
-    //     provider);
 
     const lotteryContract = new ethers.Contract(
         process.env.NEXT_PUBLIC_BET_CONTRACT_ADDRESS,
@@ -44,7 +37,7 @@ function CheckState() {
         <>
             <p>The lottery is {open ? "open" : "closed"}</p>
             <p>The last block was mined at {currentBlockDate.toLocaleDateString()} : {currentBlockDate.toLocaleTimeString()}</p>
-            <p>Lottey should close at {closingTimeDate.toLocaleDateString()} : {closingTimeDate.toLocaleTimeString()}</p>
+            <p>Lottery should close at {closingTimeDateNow.toLocaleDateString()} : {closingTimeDateNow.toLocaleTimeString()}</p>
             <p></p>
         </>
     )
@@ -62,7 +55,7 @@ function CheckState() {
                 setLoading, 
                 setOpen,
                 setCurrentBlockDate, 
-                setClosingTimeDate,
+                setClosingTimeDateNow,
                 setCompleted)}>Check State</button>
         </>
     );
@@ -71,25 +64,25 @@ function CheckState() {
 
 
 async function checkState(
-    contract,
+    lotteryContract,
     provider,
     setLoading, 
     setOpen,
     setCurrentBlockDate,
-    setClosingTimeDate,
+    setClosingTimeDateNow,
     setCompleted
 ) {
   setLoading(true)
   setCompleted(false)
-  const state = await contract.betsOpen();
-  console.log(state)
+  const state = await lotteryContract.betsOpen();
   const currentBlock = await provider.getBlock("latest");
   const currentBlockDate = new Date(currentBlock.timestamp * 1000);
-  const closingTime = await contract.betsClosingTime();
+  const closingTime = await lotteryContract.betsClosingTime();
   const closingTimeDate = new Date(closingTime.toNumber() * 1000);
+  console.log(closingTimeDate)
   setOpen(state)
   setCurrentBlockDate(currentBlockDate)
-  setClosingTimeDate(closingTimeDate)
+  setClosingTimeDateNow(closingTimeDate)
   setCompleted(true)
   setLoading(false)
 }

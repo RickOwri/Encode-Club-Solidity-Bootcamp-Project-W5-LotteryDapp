@@ -46,7 +46,7 @@ function BuyToken() {
     if (txData) return (
         <>
             <p>Token buyed completed!</p>
-            <a href={"https://mumbai.polygonscan.com/tx/" + txData.hash} target="_blank">{txData.hash}</a>
+            <a href={"https://mumbai.polygonscan.com/tx/" + txData.transactionHash} target="_blank">{txData.transactionHash}</a>
         </>
     )
     if (isLoading) return (

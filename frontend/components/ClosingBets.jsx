@@ -23,7 +23,9 @@ export function ClosingLottery() {
 
     if (txData) return (
         <>
-            <p>Bets closed ({txData.transactionHash})</p>
+            <p>Bets closed : <a href={"https://mumbai.polygonscan.com/tx/" + txData.transactionHash} target="_blank">{txData.transactionHash}</a>
+         </p>
+        
         </>
     )
     if (isLoading) return (
