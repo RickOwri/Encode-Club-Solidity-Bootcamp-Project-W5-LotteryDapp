@@ -1,8 +1,6 @@
 # Lesson 20 - Lottery
 
-## Lottery contract
-
-### Implementation details
+## Implementation details for Lottery Project
 
 * Implement ownable
 * Owner deploy lottery and define betting price and fee
@@ -54,9 +52,10 @@ All implemented functions in the project (checked) :
 
 ### Contract
 [LotteryContract](https://mumbai.polygonscan.com/address/0x183d89f2aa311c6ccce2383131d3946316b3ea4a)
+
 [LotteryToken LTO02 Contract](https://mumbai.polygonscan.com/address/0x110661228fda5eacd86449c73719d19109b758b2)
 
 ### Participant or signer
 [signer1](https://mumbai.polygonscan.com/address/0xc8e653ea3f2245c640506659180a3f2a2189afb3)
 
-[signer2 and prize winner](https://mumbai.polygonscan.com/address/0x2471b1373f20f52e5ce6cd0d08b4ce56a75acc44)
+[signer2 (prize winner)](https://mumbai.polygonscan.com/address/0x2471b1373f20f52e5ce6cd0d08b4ce56a75acc44)
