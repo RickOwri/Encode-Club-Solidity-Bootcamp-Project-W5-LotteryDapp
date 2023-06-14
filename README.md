@@ -35,7 +35,6 @@
 
 All implemented functions in the project (checked) :
 
-```
 - [x] Bet
 - [x] burnTokens
 - [x] buyTokens
@@ -50,9 +49,6 @@ All implemented functions in the project (checked) :
 - [x] OpenBets
 - [x] WalletInfo
 - [x] withdrawTokens 
-
-```
-
 
 ## Ballot operation
 
